@@ -84,6 +84,7 @@ GROUP BY product
 * Visualization	         Informative revenue bar chart per product
 
 ---
+![Monthly Revenue Bar Chart]
 
 ## Conclusion
 - This project successfully demonstrates how SQL can be integrated into Python workflows for basic sales reporting.
