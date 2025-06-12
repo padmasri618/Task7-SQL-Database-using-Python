@@ -79,8 +79,8 @@ GROUP BY product
 
 
 ##  Visualization
-![Screenshot 2025-06-12 130524]
-
+### Revenue by Product
+![Monthly Revenue Bar Chart](images/monthly_chart.png)
 ---
 ## Task Outcomes
      Step	                            Outcome
