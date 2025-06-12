@@ -76,14 +76,6 @@ GROUP BY product
 
 - Duplicate product names exist (e.g., multiple "Pen" entries), which are expected but grouped properly via SQL.
 ---
-
-
-##  Visualization
-### Revenue by Product
-![Monthly Revenue Bar Chart].
-
-
----
 ## Task Outcomes
      Step	                            Outcome
 * SQLite DB Creation	   Successful creation and data insertion
