@@ -80,7 +80,8 @@ GROUP BY product
 
 ##  Visualization
 ### Revenue by Product
- ![Uploading Monthly Revenue Bar Chart.png…]()
+![Monthly Revenue Bar Chart].
+
 
 ---
 ## Task Outcomes
