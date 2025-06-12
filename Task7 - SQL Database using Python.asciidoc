@@ -1,0 +1,190 @@
++*In[1]:*+
+[source, ipython3]
+----
+import sqlite3
+----
+
+
++*In[2]:*+
+[source, ipython3]
+----
+# Connect to SQLite DB 
+conn = sqlite3.connect("sales_data.db")
+cursor = conn.cursor()
+----
+
+
++*In[3]:*+
+[source, ipython3]
+----
+# Create a sales table
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS sales (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    product TEXT,
+    quantity INTEGER,
+    price REAL
+)
+""")
+----
+
+
++*Out[3]:*+
+----<sqlite3.Cursor at 0x1fcf6c2aac0>----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[4]:*+
+[source, ipython3]
+----
+# Insert sample data
+sample_data = [
+    ("Pen", 10, 1.5),
+    ("Notebook", 5, 3.0),
+    ("Pencil", 20, 0.5),
+    ("Eraser", 15, 0.75),
+    ("Pen", 7, 1.5),
+    ("Notebook", 3, 3.0),
+    ("Pencil", 10, 0.5)
+]
+
+cursor.executemany("INSERT INTO sales (product, quantity, price) VALUES (?, ?, ?)", sample_data)
+
+----
+
+
++*Out[4]:*+
+----<sqlite3.Cursor at 0x1fcf6c2aac0>----
+
+
++*In[5]:*+
+[source, ipython3]
+----
+# Commit and close
+conn.commit()
+conn.close()
+
+print("sales_data.db created with sample data.")
+----
+
+
++*Out[5]:*+
+----
+sales_data.db created with sample data.
+----
+
+
++*In[6]:*+
+[source, ipython3]
+----
+import sqlite3
+import pandas as pd
+import matplotlib.pyplot as plt
+
+----
+
+
++*In[7]:*+
+[source, ipython3]
+----
+# Connect to existing database
+conn = sqlite3.connect("sales_data.db")
+
+----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+# SQL query to get summary
+query = """
+SELECT 
+    product, 
+    SUM(quantity) AS total_qty, 
+    SUM(quantity * price) AS revenue 
+FROM sales 
+GROUP BY product
+"""
+----
+
+
++*In[9]:*+
+[source, ipython3]
+----
+# Load to pandas
+df = pd.read_sql_query(query, conn)
+
+----
+
+
++*In[10]:*+
+[source, ipython3]
+----
+# Print summary
+print("Sales Summary:")
+print(df)
+----
+
+
++*Out[10]:*+
+----
+Sales Summary:
+    product  total_qty  revenue
+0    Eraser         15    11.25
+1  Notebook          8    24.00
+2       Pen         17    25.50
+3    Pencil         30    15.00
+----
+
+
++*In[11]:*+
+[source, ipython3]
+----
+# Plot revenue by product
+plt.figure(figsize=(8, 5))
+df.plot(kind='bar', x='product', y='revenue', color='orange', legend=False)
+plt.title("Revenue by Product")
+plt.xlabel("Product")
+plt.ylabel("Revenue")
+plt.tight_layout()
+plt.savefig("sales_chart.png")
+plt.show()
+----
+
+
++*Out[11]:*+
+----<Figure size 800x500 with 0 Axes>
+![png](output_11_1.png)
+----
+
+
++*In[12]:*+
+[source, ipython3]
+----
+# Close DB connection
+conn.close()
+----
+
+
++*In[14]:*+
+[source, ipython3]
+----
+ plt.savefig("sales_chart.png")
+----
+
+
++*Out[14]:*+
+----<Figure size 640x480 with 0 Axes>----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
