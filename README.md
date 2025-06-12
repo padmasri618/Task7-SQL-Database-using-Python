@@ -61,6 +61,8 @@ SELECT
 FROM sales 
 GROUP BY product
 
+---
+
 ### Insights
 
 - Pen generated the highest total revenue due to being sold in high quantity with a decent price.
